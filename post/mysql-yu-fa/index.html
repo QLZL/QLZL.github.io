@@ -1,0 +1,837 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MySQL语法 | Gridea</title>
+<link rel="shortcut icon" href="https://QLZL.github.io/favicon.ico?v=1608771936479">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://QLZL.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="MySQL语法 | Gridea - Atom Feed" href="https://QLZL.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="MySQL UNION 操作符
+描述
+MySQL union 操作符用于连接两个以上的select语句的结果组合到一个结果集合中。多个select语句会删除重复的数据。
+语法
+select expression1, expression2,..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://QLZL.github.io">
+  <img class="avatar" src="https://QLZL.github.io/images/avatar.png?v=1608771936479" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              MySQL语法
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-12-24
+              </span>
+              <span>
+                18 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h2 id="mysql-union-操作符">MySQL UNION 操作符</h2>
+<h3 id="描述">描述</h3>
+<p>MySQL union 操作符用于连接两个以上的select语句的结果组合到一个结果集合中。多个select语句会删除重复的数据。</p>
+<h3 id="语法">语法</h3>
+<pre><code class="language-mysql">select expression1, expression2, ..... exprssion_n
+from tables
+[where conditions]
+union [all | distinct]
+select expression1, expression2, ..... exprssion_n
+from tables
+[where conditions]
+</code></pre>
+<h3 id="参数">参数</h3>
+<ul>
+<li>expression1, expression2, ..... expression_n : 要检索的列。</li>
+<li>tables : 要检索的数据表。</li>
+<li>where conditions : 可选，检索条件。</li>
+<li>all : 可选，返回所有结果集，包括重复数据。</li>
+<li>distinct : 可选，删除结果集中重复的数据。默认情况下union操作符已经删除了重复数据，所以distinct修饰符对结果没啥影响。</li>
+</ul>
+<h3 id="演示数据库">演示数据库</h3>
+<pre><code class="language-mysql">select * from websites;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+<th>country</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>淘宝</td>
+<td>CN</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Google</td>
+<td>USD</td>
+</tr>
+<tr>
+<td>3</td>
+<td>stackoverflow</td>
+<td>IND</td>
+</tr>
+<tr>
+<td>4</td>
+<td>微博</td>
+<td>CN</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-mysql">select * from app;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+<th>country</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>QQ</td>
+<td>CN</td>
+</tr>
+<tr>
+<td>2</td>
+<td>淘宝</td>
+<td>CN</td>
+</tr>
+<tr>
+<td>3</td>
+<td>微博</td>
+<td>CN</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sql-union-实例">SQL UNION 实例</h3>
+<pre><code class="language-mysql">select country from websites
+union
+select country from app
+order by country;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>country</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CN</td>
+</tr>
+<tr>
+<td>IND</td>
+</tr>
+<tr>
+<td>USA</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sql-union-all-实例">SQL UNION ALL 实例</h3>
+<pre><code class="language-mysql">select country from websites
+union all
+select country from app
+order by country;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>country</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CN</td>
+</tr>
+<tr>
+<td>CN</td>
+</tr>
+<tr>
+<td>CN</td>
+</tr>
+<tr>
+<td>CN</td>
+</tr>
+<tr>
+<td>CN</td>
+</tr>
+<tr>
+<td>IND</td>
+</tr>
+<tr>
+<td>USA</td>
+</tr>
+</tbody>
+</table>
+<h3 id="带有-where-的-sql-union-all">带有 WHERE 的 SQL UNION ALL</h3>
+<pre><code class="language-mysql">select country, name from websites
+where country=&quot;CN&quot;
+union all
+select country, name from app
+where country=&quot;CN&quot;
+order by country;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>country</th>
+<th>name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CN</td>
+<td>淘宝</td>
+</tr>
+<tr>
+<td>CN</td>
+<td>微博</td>
+</tr>
+<tr>
+<td>CN</td>
+<td>QQ app</td>
+</tr>
+<tr>
+<td>CN</td>
+<td>淘宝 app</td>
+</tr>
+<tr>
+<td>CN</td>
+<td>微博 app</td>
+</tr>
+</tbody>
+</table>
+<h3 id="总结">总结</h3>
+<p><strong>UNION 语句</strong>：用于将不同表中相同列中查询的数据展示出来；（不包括重复数据）</p>
+<p><strong>UNION ALL 语句</strong>：用于将不同表中相同列中查询的数据展示出来；（包括重复数据）</p>
+<h2 id="mysql-排序">MySQL 排序</h2>
+<p>我们知道从 MySQL 表中使用 SQL SELECT 语句来读取数据。</p>
+<p>如果我们需要对读取的数据进行排序，我们就可以使用 MySQL 的 <strong>ORDER BY</strong> 子句来设定你想按哪个字段哪种方式来进行排序，再返回搜索结果。</p>
+<h3 id="语法-2">语法</h3>
+<p>SQL SELECT 语句使用 ORDER BY 子句将查询数据排序后再返回数据：</p>
+<pre><code class="language-mysql">SELECT field1, field2,...fieldN 
+FROM table_name1, table_name2...
+ORDER BY 
+field1 [ASC [DESC][默认 ASC]], 
+[field2...] [ASC [DESC][默认 ASC]];
+</code></pre>
+<ul>
+<li>可以使用任何字段来作为排序的条件，从而返回排序后的查询结果。</li>
+<li>可以设定多个字段来排序。</li>
+<li>可以使用asc 或 desc 关键字来设置查询结果是按升序或降序排列。默认情况，它是按升序排列。</li>
+<li>可以添加where ..... like 子句来设置条件。</li>
+</ul>
+<h3 id="order-by-实例">ORDER BY 实例</h3>
+<pre><code class="language-mysql">select * from websites order by id desc;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">id</th>
+<th>name</th>
+<th>country</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">4</td>
+<td>微博</td>
+<td>CN</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td>stackoverflow</td>
+<td>IND</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td>Google</td>
+<td>USA</td>
+</tr>
+<tr>
+<td style="text-align:left">1</td>
+<td>淘宝</td>
+<td>CN</td>
+</tr>
+</tbody>
+</table>
+<h2 id="mysql-group-by-分组">MySQL GROUP BY 分组</h2>
+<p>GROUP BY 语句根据一个或多个列对结果集进行分组。</p>
+<p>在分组的列上我们可以使用 COUNT, SUM, AVG,等函数。</p>
+<h3 id="group-by-语法">group by 语法</h3>
+<pre><code class="language-mysql">SELECT column_name, function(column_name)
+FROM table_name
+WHERE column_name operator value
+GROUP BY column_name;
+</code></pre>
+<h3 id="实例演示">实例演示</h3>
+<p>本实例使用到了以下表结构及数据，使用前我们可以先将以下数据导入数据库中。</p>
+<pre><code class="language-mysql">SET NAMES utf8;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+--  Table structure for `employee_tbl`
+-- ----------------------------
+DROP TABLE IF EXISTS `employee_tbl`;
+CREATE TABLE `employee_tbl` (
+  `id` int(11) NOT NULL,
+  `name` char(10) NOT NULL DEFAULT '',
+  `date` datetime NOT NULL,
+  `singin` tinyint(4) NOT NULL DEFAULT '0' COMMENT '登录次数',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `employee_tbl`
+-- ----------------------------
+BEGIN;
+INSERT INTO `employee_tbl` VALUES ('1', '小明', '2016-04-22 15:25:33', '1'), ('2', '小王', '2016-04-20 15:25:47', '3'), ('3', '小丽', '2016-04-19 15:26:02', '2'), ('4', '小王', '2016-04-07 15:26:14', '4'), ('5', '小明', '2016-04-11 15:26:40', '4'), ('6', '小明', '2016-04-04 15:26:54', '2');
+COMMIT;
+
+SET FOREIGN_KEY_CHECKS = 1;
+</code></pre>
+<p>导入成功后，执行以下 SQL 语句：</p>
+<pre><code class="language-mysql">SELECT * FROM employee_tbl;
++----+--------+---------------------+--------+
+| id | name   | date                | singin |
++----+--------+---------------------+--------+
+|  1 | 小明    | 2016-04-22 15:25:33 |      1 |
+|  2 | 小王    | 2016-04-20 15:25:47 |      3 |
+|  3 | 小丽    | 2016-04-19 15:26:02 |      2 |
+|  4 | 小王    | 2016-04-07 15:26:14 |      4 |
+|  5 | 小明    | 2016-04-11 15:26:40 |      4 |
+|  6 | 小明    | 2016-04-04 15:26:54 |      2 |
++----+--------+---------------------+--------+
+</code></pre>
+<p>接下来我们使用 GROUP BY 语句 将数据表按名字进行分组，并统计每个人有多少条记录：</p>
+<pre><code class="language-mysql">SELECT name, COUNT(*) FROM   employee_tbl GROUP BY name;
++--------+----------+
+| name   | COUNT(*) |
++--------+----------+
+| 小丽    |        1 |
+| 小明    |        3 |
+| 小王    |        2 |
++--------+----------+
+</code></pre>
+<h3 id="使用with-rollup">使用with rollup</h3>
+<p>WITH ROLLUP 可以实现在分组统计数据基础上再进行相同的统计（SUM,AVG,COUNT…）。</p>
+<p>例如我们将以上的数据表按名字进行分组，再统计每个人登录的次数：</p>
+<pre><code class="language-mysql">SELECT name, SUM(singin) as singin_count FROM  employee_tbl GROUP BY name WITH ROLLUP;
++--------+--------------+
+| name   | singin_count |
++--------+--------------+
+| 小丽    |            2 |
+| 小明    |            7 |
+| 小王    |            7 |
+| NULL   |           16 |
++--------+--------------+
+</code></pre>
+<p>其中记录 NULL 表示所有人的登录次数。</p>
+<p>我们可以使用 coalesce 来设置一个可以取代 NUll 的名称，coalesce 语法：</p>
+<pre><code class="language-mysql">select coalesce(a,b,c);
+</code></pre>
+<p>参数说明：如果a<mark>null,则选择b；如果b</mark>null,则选择c；如果a!=null,则选择a；如果a b c 都为null ，则返回为null（没意义）。</p>
+<p>以下实例中如果名字为空我们使用总数代替：</p>
+<pre><code class="language-mysql">SELECT coalesce(name, '总数') as name, SUM(singin) as singin_count FROM  employee_tbl GROUP BY name WITH ROLLUP;
++-----------+--------------+
+| name      | singin_count |
++-----------+--------------+
+| 小丽       |            2 |
+| 小明       |            7 |
+| 小王       |            7 |
+| 总数       |           16 |
++-----------+--------------+
+</code></pre>
+<h2 id="mysql-连接的使用">MySQL 连接的使用</h2>
+<p>在前几章节中，我们已经学会了如何在一张表中读取数据，这是相对简单的，但是在真正的应用中经常需要从多个数据表中读取数据。</p>
+<p>本章节我们将向大家介绍如何使用 MySQL 的 JOIN 在两个或多个表中查询数据。</p>
+<p>你可以在 SELECT, UPDATE 和 DELETE 语句中使用 Mysql 的 JOIN 来联合多表查询。</p>
+<p>JOIN 按照功能大致分为如下三类：</p>
+<ul>
+<li><strong>INNER JOIN（内连接,或等值连接）</strong>：获取两个表中字段匹配关系的记录。</li>
+<li>**LEFT JOIN（左连接）：**获取左表所有记录，即使右表没有对应匹配的记录。</li>
+<li><strong>RIGHT JOIN（右连接）：</strong> 与 LEFT JOIN 相反，用于获取右表所有记录，即使左表没有对应匹配的记录。</li>
+</ul>
+<h3 id="演示数据库-2">演示数据库</h3>
+<pre><code class="language-mysql">mysql&gt; SELECT * FROM tcount_tbl;
++---------------+--------------+
+| runoob_author | runoob_count |
++---------------+--------------+
+| 菜鸟教程        | 10           |
+| RUNOOB.COM    | 20           |
+| Google        | 22           |
++---------------+--------------+
+3 rows in set (0.01 sec)
+ 
+mysql&gt; SELECT * from runoob_tbl;
++-----------+---------------+---------------+-----------------+
+| runoob_id | runoob_title  | runoob_author | submission_date |
++-----------+---------------+---------------+-----------------+
+| 1         | 学习 PHP       | 菜鸟教程        | 2017-04-12      |
+| 2         | 学习 MySQL     | 菜鸟教程        | 2017-04-12      |
+| 3         | 学习 Java      | RUNOOB.COM    | 2015-05-01      |
+| 4         | 学习 Python    | RUNOOB.COM    | 2016-03-06      |
+| 5         | 学习 C         | FK            | 2017-04-05      |
++-----------+---------------+---------------+-----------------+
+</code></pre>
+<h3 id="mysql-inner-join">MySQL inner join</h3>
+<p>使用MySQL的**INNER JOIN(也可以省略 INNER 使用 JOIN，效果一样)**来连接以上两张表来读取runoob_tbl表中所有runoob_author字段在tcount_tbl表对应的runoob_count字段值：</p>
+<pre><code class="language-mysql">mysql&gt; SELECT a.runoob_id, a.runoob_author, b.runoob_count FROM runoob_tbl a INNER JOIN tcount_tbl b ON a.runoob_author = b.runoob_author;
++-------------+-----------------+----------------+
+| a.runoob_id | a.runoob_author | b.runoob_count |
++-------------+-----------------+----------------+
+| 1           | 菜鸟教程          | 10             |
+| 2           | 菜鸟教程          | 10             |
+| 3           | RUNOOB.COM      | 20             |
+| 4           | RUNOOB.COM      | 20             |
++-------------+-----------------+----------------+
+</code></pre>
+<p>以上SQL语句等价于：</p>
+<pre><code class="language-mysql">mysql&gt; SELECT a.runoob_id, a.runoob_author, b.runoob_count FROM runoob_tbl a, tcount_tbl b WHERE a.runoob_author = b.runoob_author;
++-------------+-----------------+----------------+
+| a.runoob_id | a.runoob_author | b.runoob_count |
++-------------+-----------------+----------------+
+| 1           | 菜鸟教程          | 10             |
+| 2           | 菜鸟教程          | 10             |
+| 3           | RUNOOB.COM      | 20             |
+| 4           | RUNOOB.COM      | 20             |
++-------------+-----------------+----------------+
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://QLZL.github.io/post-images/1608771882960.gif" alt="" loading="lazy"></figure>
+<h3 id="mysql-left-join">MySQL left join</h3>
+<p>MySQL left join 与 join 有所不同。 MySQL LEFT JOIN 会读取左边数据表的全部数据，即便右边表无对应数据。</p>
+<p>尝试以下实例，以 <strong>runoob_tbl</strong> 为左表，<strong>tcount_tbl</strong> 为右表，理解 MySQL LEFT JOIN 的应用：</p>
+<pre><code class="language-mysql">SELECT a.runoob_id, a.runoob_author, b.runoob_count FROM runoob_tbl a LEFT JOIN tcount_tbl b ON a.runoob_author = b.runoob_author;
++-------------+-----------------+----------------+
+| a.runoob_id | a.runoob_author | b.runoob_count |
++-------------+-----------------+----------------+
+| 1           | 菜鸟教程          | 10             |
+| 2           | 菜鸟教程          | 10             |
+| 3           | RUNOOB.COM      | 20             |
+| 4           | RUNOOB.COM      | 20             |
+| 5           | FK              | NULL           |
++-------------+-----------------+----------------+
+</code></pre>
+<p>以上实例中使用了 LEFT JOIN，该语句会读取左边的数据表 runoob_tbl 的所有选取的字段数据，即便在右侧表 tcount_tbl中 没有对应的 runoob_author 字段值。</p>
+<figure data-type="image" tabindex="2"><img src="https://QLZL.github.io/post-images/1608771905638.gif" alt="" loading="lazy"></figure>
+<h3 id="mysql-right-join">MySQL right join</h3>
+<p>MySQL RIGHT JOIN 会读取右边数据表的全部数据，即便左边边表无对应数据。</p>
+<p>以 <strong>runoob_tbl</strong> 为左表，<strong>tcount_tbl</strong> 为右表，理解MySQL RIGHT JOIN的应用：</p>
+<pre><code class="language-mysql">mysql&gt; SELECT a.runoob_id, a.runoob_author, b.runoob_count FROM runoob_tbl a RIGHT JOIN tcount_tbl b ON a.runoob_author = b.runoob_author;
++-------------+-----------------+----------------+
+| a.runoob_id | a.runoob_author | b.runoob_count |
++-------------+-----------------+----------------+
+| 1           | 菜鸟教程          | 10             |
+| 2           | 菜鸟教程          | 10             |
+| 3           | RUNOOB.COM      | 20             |
+| 4           | RUNOOB.COM      | 20             |
+| NULL        | NULL            | 22             |
++-------------+-----------------+----------------+
+</code></pre>
+<p>以上实例中使用了 RIGHT JOIN，该语句会读取右边的数据表 tcount_tbl 的所有选取的字段数据，即便在左侧表 runoob_tbl 中没有对应的runoob_author 字段值。</p>
+<figure data-type="image" tabindex="3"><img src="https://QLZL.github.io/post-images/1608771919408.gif" alt="" loading="lazy"></figure>
+<h2 id="mysql-null-处理">MySQL NULL 处理</h2>
+<p>我们已经知道 MySQL 使用 SQL SELECT 命令及 WHERE 子句来读取数据表中的数据,但是当提供的查询条件字段为 NULL 时，该命令可能就无法正常工作。</p>
+<p>为了处理这种情况，MySQL提供了三大运算符:</p>
+<ul>
+<li><strong>IS NULL:</strong> 当列的值是 NULL,此运算符返回 true。</li>
+<li><strong>IS NOT NULL:</strong> 当列的值不为 NULL, 运算符返回 true。</li>
+<li><strong>&lt;=&gt;:</strong> 比较操作符（不同于 = 运算符），当比较的的两个值相等或者都为 NULL 时返回 true。</li>
+</ul>
+<p>关于 NULL 的条件比较运算是比较特殊的。你不能使用 = NULL 或 != NULL 在列中查找 NULL 值 。</p>
+<p>在 MySQL 中，NULL 值与任何其它值的比较（即使是 NULL）永远返回 NULL，即 NULL = NULL 返回 NULL 。</p>
+<p>MySQL 中处理 NULL 使用 IS NULL 和 IS NOT NULL 运算符。</p>
+<h3 id="实例">实例</h3>
+<p>演示数据库</p>
+<pre><code class="language-mysql">mysql&gt; SELECT * from runoob_test_tbl;
++---------------+--------------+
+| runoob_author | runoob_count |
++---------------+--------------+
+| RUNOOB        | 20           |
+| 菜鸟教程        | NULL         |
+| Google        | NULL         |
+| FK            | 20           |
++---------------+--------------+
+</code></pre>
+<p>实例中你可以看到 = 和 != 运算符是不起作用的：</p>
+<pre><code class="language-mysql">mysql&gt; SELECT * FROM runoob_test_tbl WHERE runoob_count = NULL;
+Empty set (0.00 sec)
+mysql&gt; SELECT * FROM runoob_test_tbl WHERE runoob_count != NULL;
+Empty set (0.01 sec)
+</code></pre>
+<p>查找数据表中 runoob_test_tbl 列是否为 NULL，必须使用 <strong>IS NULL</strong> 和 <strong>IS NOT NULL</strong>，如下实例：</p>
+<pre><code class="language-mysql">mysql&gt; SELECT * FROM runoob_test_tbl WHERE runoob_count IS NULL;
++---------------+--------------+
+| runoob_author | runoob_count |
++---------------+--------------+
+| 菜鸟教程  | NULL         |
+| Google        | NULL         |
++---------------+--------------+
+2 rows in set (0.01 sec)
+ 
+mysql&gt; SELECT * from runoob_test_tbl WHERE runoob_count IS NOT NULL;
++---------------+--------------+
+| runoob_author | runoob_count |
++---------------+--------------+
+| RUNOOB        | 20           |
+| FK            | 20           |
++---------------+--------------+
+2 rows in set (0.01 sec)
+</code></pre>
+<h2 id="mysql-事务">MySQL 事务</h2>
+<p>MySQL事务主要用于处理造作量大，复杂度高的数据。比如，在人员管理系统中，删除一个人员，你既需要删除人员的基本资料，也要删除和该人员的相关的信息，如信箱，文章等等，这样，这些数据库造作语句就构成一个事务。</p>
+<ul>
+<li>在MySQL中只有使用了innodb数据库引擎的数据库或表才支持事务。</li>
+<li>事务处理可以用来维护数据库的完整性，保证成批的SQL语句妖魔全部执行，要么全部不执行。</li>
+<li>事务用来管理insert，update，delete语句</li>
+</ul>
+<p>一般来说，事务必须满足4个条件（ACID）：原子性（Atomicity，或称不可分割性）、一致性（Consistency）、隔离性（Lsolation，又称独立性）、持久性（Durability）。</p>
+<ul>
+<li>**原子性：**一个事务（transaction）中的所有操作，要么全部完成，要么全部不完成，不会结束在中间某个环节。事务在执行过程中发生错误，会被回滚（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样。</li>
+<li>**一致性：**在事务开始之前和事务结束以后，数据库的完整性没有被破坏。这表示写入的资料必须完全符合所有的预设规则，这包含资料的精确度、串联性以及后续数据库可以自发性地完成预定的工作。</li>
+<li>**隔离性：**数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。事务隔离分为不同级别，包括读未提交（Read uncommitted）、读提交（read committed）、可重复读（repeatable read）和串行化（Serializable）。</li>
+<li>**持久性：**事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。</li>
+</ul>
+<blockquote>
+<p><em>在 MySQL 命令行的默认设置下，事务都是自动提交的，即执行 SQL 语句后就会马上执行 COMMIT 操作。因此要显式地开启一个事务务须使用命令 BEGIN 或 START TRANSACTION，或者执行命令 SET AUTOCOMMIT=0，用来禁止使用当前会话的自动提交。</em></p>
+</blockquote>
+<h3 id="事务控制语句">事务控制语句：</h3>
+<ul>
+<li>BEGIN 或 START TRANSACTION 显式地开启一个事务；</li>
+<li>COMMIT 也可以使用 COMMIT WORK，不过二者是等价的。COMMIT 会提交事务，并使已对数据库进行的所有修改成为永久性的；</li>
+<li>ROLLBACK 也可以使用 ROLLBACK WORK，不过二者是等价的。回滚会结束用户的事务，并撤销正在进行的所有未提交的修改；</li>
+<li>SAVEPOINT identifier，SAVEPOINT 允许在事务中创建一个保存点，一个事务中可以有多个 SAVEPOINT；</li>
+<li>RELEASE SAVEPOINT identifier 删除一个事务的保存点，当没有指定的保存点时，执行该语句会抛出一个异常；</li>
+<li>ROLLBACK TO identifier 把事务回滚到标记点；</li>
+<li>SET TRANSACTION 用来设置事务的隔离级别。InnoDB 存储引擎提供事务的隔离级别有READ UNCOMMITTED、READ COMMITTED、REPEATABLE READ 和 SERIALIZABLE。</li>
+</ul>
+<h3 id="mysql-事务处理主要有两种方法">MYSQL 事务处理主要有两种方法：</h3>
+<p>1、用 BEGIN, ROLLBACK, COMMIT来实现</p>
+<ul>
+<li><strong>BEGIN</strong> 开始一个事务</li>
+<li><strong>ROLLBACK</strong> 事务回滚</li>
+<li><strong>COMMIT</strong> 事务确认</li>
+</ul>
+<p>2、直接用 SET 来改变 MySQL 的自动提交模式:</p>
+<ul>
+<li><strong>SET AUTOCOMMIT=0</strong> 禁止自动提交</li>
+<li><strong>SET AUTOCOMMIT=1</strong> 开启自动提交</li>
+</ul>
+<pre><code class="language-mysql">mysql&gt; CREATE TABLE runoob_transaction_test( id int(5)) engine=innodb;  # 创建数据表
+Query OK, 0 rows affected (0.04 sec)
+ 
+mysql&gt; select * from runoob_transaction_test;
+Empty set (0.01 sec)
+ 
+mysql&gt; begin;  # 开始事务
+Query OK, 0 rows affected (0.00 sec)
+ 
+mysql&gt; insert into runoob_transaction_test value(5);
+Query OK, 1 rows affected (0.01 sec)
+ 
+mysql&gt; insert into runoob_transaction_test value(6);
+Query OK, 1 rows affected (0.00 sec)
+ 
+mysql&gt; commit; # 提交事务
+Query OK, 0 rows affected (0.01 sec)
+ 
+mysql&gt;  select * from runoob_transaction_test;
++------+
+| id   |
++------+
+| 5    |
+| 6    |
++------+
+2 rows in set (0.01 sec)
+ 
+mysql&gt; begin;    # 开始事务
+Query OK, 0 rows affected (0.00 sec)
+ 
+mysql&gt;  insert into runoob_transaction_test values(7);
+Query OK, 1 rows affected (0.00 sec)
+ 
+mysql&gt; rollback;   # 回滚
+Query OK, 0 rows affected (0.00 sec)
+ 
+mysql&gt;   select * from runoob_transaction_test;   # 因为回滚所以数据没有插入
++------+
+| id   |
++------+
+| 5    |
+| 6    |
++------+
+2 rows in set (0.01 sec)
+</code></pre>
+<h2 id="mysql-索引">MySQL 索引</h2>
+<p>MySQL索引的建立对于MySQL的高效运行是很重要的，索引可以大大提高MySQL的检索速度。</p>
+<p>例如：有一张person表，其中有2W条记录，记录着2W个人的信息。有一个Phone的字段记录每个人的电话号码，现在想要查询出电话号码为xxxx的人的信息。</p>
+<p>如果没有索引，那么将从表中第一条记录一条条往下遍历，直到找到该条信息为止。</p>
+<p>如果有了索引，那么会将 Phone 字段，通过一定的方法进行存储，好让查询该字段上的信息时，能够快速找到对应的数据，而不必在遍历2W条数据了。</p>
+<h3 id="普通索引">普通索引</h3>
+<h5 id="创建索引">创建索引</h5>
+<p>最基本的索引，没有任何限制。</p>
+<pre><code class="language-mysql">create INDEX indexName on table_name(column_name);
+</code></pre>
+<p>如果是CHAR，VARCHAR类型，length可以小于字段实际长度；如果是BLOB和TEXT类型，必须指定 length。</p>
+<h5 id="修改表结构添加索引">修改表结构（添加索引）</h5>
+<pre><code class="language-mysql">alter table teblename ADD indexname(column_name);
+</code></pre>
+<h5 id="创建表的时候直接指定">创建表的时候直接指定</h5>
+<pre><code class="language-mysql">CREATE TABLE mytable(  
+ID INT NOT NULL,   
+username VARCHAR(16) NOT NULL,  
+INDEX [indexName] (username(length))  
+);  
+</code></pre>
+<h5 id="删除索引">删除索引</h5>
+<pre><code class="language-mysql">drop index [indexName] on mytable;
+</code></pre>
+<h3 id="唯一索引">唯一索引</h3>
+<p>它与前面的普通索引类似，不同的就是：索引列的值必须唯一，但允许有空值。如果是组合索引，则列值的组合必须唯一。</p>
+<h5 id="创建索引-2">创建索引</h5>
+<pre><code class="language-mysql">create unique index indeaname on mytable（username（length））
+</code></pre>
+<h5 id="修改表结构">修改表结构</h5>
+<pre><code class="language-mysql">alter table mytable add unique [indexname] (username(length))
+</code></pre>
+<h5 id="创建表的时候指定">创建表的时候指定</h5>
+<pre><code class="language-mysql">CREATE TABLE mytable(  
+ID INT NOT NULL,   
+username VARCHAR(16) NOT NULL,  
+UNIQUE [indexName] (username(length))  
+);  
+</code></pre>
+<h3 id="使用alter命令添加和删除索引">使用alter命令添加和删除索引</h3>
+<p>有四种方式来添加数据表的索引：</p>
+<ul>
+<li><strong>ALTER TABLE tbl_name ADD PRIMARY KEY (column_list)</strong>:该语句添加一个主键，这意味着索引值必须是唯一的，且不能为NULL。</li>
+<li><strong>ALTER TABLE tbl_name ADD UNIQUE index_name (column_list):</strong> 这条语句创建索引的值必须是唯一的（除了NULL外，NULL可能会出现多次）。</li>
+<li><strong>ALTER TABLE tbl_name ADD INDEX index_name (column_list):</strong> 添加普通索引，索引值可出现多次。</li>
+<li>**ALTER TABLE tbl_name ADD FULLTEXT index_name (column_list)😗*该语句指定了索引为 FULLTEXT ，用于全文索引。</li>
+</ul>
+<h3 id="使用alter命令添加和删除主键">使用alter命令添加和删除主键</h3>
+<p>主键作用于列上（可以一个列或多个列联合主键），添加主键索引时，你需要确保该主键默认不为空（NOT NULL）。</p>
+<pre><code class="language-mysql">mysql&gt; ALTER TABLE testalter_tbl MODIFY i INT NOT NULL;
+mysql&gt; ALTER TABLE testalter_tbl ADD PRIMARY KEY (i);
+</code></pre>
+<p>使用alter命令删除主键：</p>
+<pre><code class="language-mysql">mysql&gt; ALTER TABLE testalter_tbl DROP PRIMARY KEY;
+</code></pre>
+<p>删除主键时只需要指定PRIMARY KEY，但在删除索引时，你必须知道索引名。</p>
+<h3 id="显示索引信息">显示索引信息</h3>
+<p>你可以使用 SHOW INDEX 命令来列出表中的相关的索引信息。可以通过添加 \G 来格式化输出信息。</p>
+<pre><code class="language-mysql">mysql&gt; SHOW INDEX FROM table_name; \G
+</code></pre>
+<p>用EXPLAIN关键字，来查看索引是否正在被使用，并且输出其使用的索引信息</p>
+<pre><code class="language-mysql">EXPLAIN SELECT * FROM book WHERE author = 'nana';
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#mysql-union-%E6%93%8D%E4%BD%9C%E7%AC%A6">MySQL UNION 操作符</a>
+<ul>
+<li><a href="#%E6%8F%8F%E8%BF%B0">描述</a></li>
+<li><a href="#%E8%AF%AD%E6%B3%95">语法</a></li>
+<li><a href="#%E5%8F%82%E6%95%B0">参数</a></li>
+<li><a href="#%E6%BC%94%E7%A4%BA%E6%95%B0%E6%8D%AE%E5%BA%93">演示数据库</a></li>
+<li><a href="#sql-union-%E5%AE%9E%E4%BE%8B">SQL UNION 实例</a></li>
+<li><a href="#sql-union-all-%E5%AE%9E%E4%BE%8B">SQL UNION ALL 实例</a></li>
+<li><a href="#%E5%B8%A6%E6%9C%89-where-%E7%9A%84-sql-union-all">带有 WHERE 的 SQL UNION ALL</a></li>
+<li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
+</ul>
+</li>
+<li><a href="#mysql-%E6%8E%92%E5%BA%8F">MySQL 排序</a>
+<ul>
+<li><a href="#%E8%AF%AD%E6%B3%95-2">语法</a></li>
+<li><a href="#order-by-%E5%AE%9E%E4%BE%8B">ORDER BY 实例</a></li>
+</ul>
+</li>
+<li><a href="#mysql-group-by-%E5%88%86%E7%BB%84">MySQL GROUP BY 分组</a>
+<ul>
+<li><a href="#group-by-%E8%AF%AD%E6%B3%95">group by 语法</a></li>
+<li><a href="#%E5%AE%9E%E4%BE%8B%E6%BC%94%E7%A4%BA">实例演示</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8with-rollup">使用with rollup</a></li>
+</ul>
+</li>
+<li><a href="#mysql-%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%BD%BF%E7%94%A8">MySQL 连接的使用</a>
+<ul>
+<li><a href="#%E6%BC%94%E7%A4%BA%E6%95%B0%E6%8D%AE%E5%BA%93-2">演示数据库</a></li>
+<li><a href="#mysql-inner-join">MySQL inner join</a></li>
+<li><a href="#mysql-left-join">MySQL left join</a></li>
+<li><a href="#mysql-right-join">MySQL right join</a></li>
+</ul>
+</li>
+<li><a href="#mysql-null-%E5%A4%84%E7%90%86">MySQL NULL 处理</a>
+<ul>
+<li><a href="#%E5%AE%9E%E4%BE%8B">实例</a></li>
+</ul>
+</li>
+<li><a href="#mysql-%E4%BA%8B%E5%8A%A1">MySQL 事务</a>
+<ul>
+<li><a href="#%E4%BA%8B%E5%8A%A1%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5">事务控制语句：</a></li>
+<li><a href="#mysql-%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86%E4%B8%BB%E8%A6%81%E6%9C%89%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95">MYSQL 事务处理主要有两种方法：</a></li>
+</ul>
+</li>
+<li><a href="#mysql-%E7%B4%A2%E5%BC%95">MySQL 索引</a>
+<ul>
+<li><a href="#%E6%99%AE%E9%80%9A%E7%B4%A2%E5%BC%95">普通索引</a><br>
+*
+<ul>
+<li><a href="#%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95">创建索引</a></li>
+<li><a href="#%E4%BF%AE%E6%94%B9%E8%A1%A8%E7%BB%93%E6%9E%84%E6%B7%BB%E5%8A%A0%E7%B4%A2%E5%BC%95">修改表结构（添加索引）</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E8%A1%A8%E7%9A%84%E6%97%B6%E5%80%99%E7%9B%B4%E6%8E%A5%E6%8C%87%E5%AE%9A">创建表的时候直接指定</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4%E7%B4%A2%E5%BC%95">删除索引</a></li>
+</ul>
+</li>
+<li><a href="#%E5%94%AF%E4%B8%80%E7%B4%A2%E5%BC%95">唯一索引</a><br>
+*
+<ul>
+<li><a href="#%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95-2">创建索引</a></li>
+<li><a href="#%E4%BF%AE%E6%94%B9%E8%A1%A8%E7%BB%93%E6%9E%84">修改表结构</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E8%A1%A8%E7%9A%84%E6%97%B6%E5%80%99%E6%8C%87%E5%AE%9A">创建表的时候指定</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BD%BF%E7%94%A8alter%E5%91%BD%E4%BB%A4%E6%B7%BB%E5%8A%A0%E5%92%8C%E5%88%A0%E9%99%A4%E7%B4%A2%E5%BC%95">使用alter命令添加和删除索引</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8alter%E5%91%BD%E4%BB%A4%E6%B7%BB%E5%8A%A0%E5%92%8C%E5%88%A0%E9%99%A4%E4%B8%BB%E9%94%AE">使用alter命令添加和删除主键</a></li>
+<li><a href="#%E6%98%BE%E7%A4%BA%E7%B4%A2%E5%BC%95%E4%BF%A1%E6%81%AF">显示索引信息</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://QLZL.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
