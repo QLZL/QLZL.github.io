@@ -2,14 +2,54 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://QLZL.github.io</id>
     <title>Gridea</title>
-    <updated>2020-12-24T01:18:05.970Z</updated>
+    <updated>2021-01-06T09:11:51.224Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://QLZL.github.io"/>
     <link rel="self" href="https://QLZL.github.io/atom.xml"/>
     <subtitle>温故而知新</subtitle>
     <logo>https://QLZL.github.io/images/avatar.png</logo>
     <icon>https://QLZL.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, Gridea</rights>
+    <rights>All rights reserved 2021, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[ CentOS 7 添加用户及设置权限]]></title>
+        <id>https://QLZL.github.io/post/centos-7-tian-jia-yong-hu-ji-she-zhi-quan-xian/</id>
+        <link href="https://QLZL.github.io/post/centos-7-tian-jia-yong-hu-ji-she-zhi-quan-xian/">
+        </link>
+        <updated>2021-01-06T09:11:23.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="一-添加用户">一、添加用户</h2>
+<h3 id="1-登录root用户">1、登录root用户</h3>
+<h3 id="2-添加用户">2、添加用户</h3>
+<pre><code>[root@qlzl ~]# useradd fenghuan
+</code></pre>
+<h3 id="3-设置用户密码">3、设置用户密码</h3>
+<pre><code>[root@qlzl ~]# passwd fenghuan
+Changing password for user fenghuan.
+New password: 
+BAD PASSWORD: The password contains the user name in some form
+Retype new password: 
+passwd: all authentication tokens updated successfully.
+</code></pre>
+<h2 id="二-给用户添加root权限">二、给用户添加root权限</h2>
+<h3 id="1-切换到root">1、切换到root</h3>
+<h3 id="2-为sudoers-添加可写权限">2、为sudoers 添加可写权限</h3>
+<pre><code>[root@qlzl ~]# chmod -v u+w /etc/sudoers
+mode of ‘/etc/sudoers’ changed from 0440 (r--r-----) to 0640 (rw-r-----)
+</code></pre>
+<h3 id="3-编辑">3、编辑</h3>
+<pre><code>[root@qlzl ~]# vi /etc/sudoers
+</code></pre>
+<h3 id="4-添加">4、添加</h3>
+<pre><code>## Allow root to tun any commands anywher
+   root ALL=(ALL) ALL
+   xxx ALL=(ALL) ALL  # xxx为新用户
+</code></pre>
+<h3 id="5-保存">5、保存</h3>
+<h3 id="6-取消sudoers文件可写权限">6、取消sudoers文件可写权限</h3>
+<pre><code>[root@qlzl ~]# chmod -v u-w /etc/sudoers
+mode of ‘/etc/sudoers’ changed from 0640 (rw-r-----) to 0440 (r--r-----)
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Redis命令启动]]></title>
         <id>https://QLZL.github.io/post/redis-ming-ling-qi-dong/</id>

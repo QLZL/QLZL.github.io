@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>标签列表 | Gridea</title>
+<title> CentOS 7 添加用户及设置权限 | Gridea</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -18,7 +18,15 @@
 
 
 
-    <meta name="description" content="温故而知新">
+    <meta name="description" content="一、添加用户
+1、登录root用户
+2、添加用户
+[root@qlzl ~]# useradd fenghuan
+
+3、设置用户密码
+[root@qlzl ~]# passwd fenghuan
+Changing password for ..." />
+    <meta name="keywords" content="" />
   </head>
   <body>
     <div id="app" class="main">
@@ -88,10 +96,61 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
-          <h2 class="tag-list-title">标签列表</h2>
-          <div class="tags-container">
+          <div class="post-detail">
+            <h2 class="post-title"> CentOS 7 添加用户及设置权限</h2>
+            <div class="post-date">2021-01-06</div>
             
+            <div class="post-content" v-pre>
+              <h2 id="一-添加用户">一、添加用户</h2>
+<h3 id="1-登录root用户">1、登录root用户</h3>
+<h3 id="2-添加用户">2、添加用户</h3>
+<pre><code>[root@qlzl ~]# useradd fenghuan
+</code></pre>
+<h3 id="3-设置用户密码">3、设置用户密码</h3>
+<pre><code>[root@qlzl ~]# passwd fenghuan
+Changing password for user fenghuan.
+New password: 
+BAD PASSWORD: The password contains the user name in some form
+Retype new password: 
+passwd: all authentication tokens updated successfully.
+</code></pre>
+<h2 id="二-给用户添加root权限">二、给用户添加root权限</h2>
+<h3 id="1-切换到root">1、切换到root</h3>
+<h3 id="2-为sudoers-添加可写权限">2、为sudoers 添加可写权限</h3>
+<pre><code>[root@qlzl ~]# chmod -v u+w /etc/sudoers
+mode of ‘/etc/sudoers’ changed from 0440 (r--r-----) to 0640 (rw-r-----)
+</code></pre>
+<h3 id="3-编辑">3、编辑</h3>
+<pre><code>[root@qlzl ~]# vi /etc/sudoers
+</code></pre>
+<h3 id="4-添加">4、添加</h3>
+<pre><code>## Allow root to tun any commands anywher
+   root ALL=(ALL) ALL
+   xxx ALL=(ALL) ALL  # xxx为新用户
+</code></pre>
+<h3 id="5-保存">5、保存</h3>
+<h3 id="6-取消sudoers文件可写权限">6、取消sudoers文件可写权限</h3>
+<pre><code>[root@qlzl ~]# chmod -v u-w /etc/sudoers
+mode of ‘/etc/sudoers’ changed from 0640 (rw-r-----) to 0440 (r--r-----)
+</code></pre>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://QLZL.github.io/post/redis-ming-ling-qi-dong/">
+                  <h3 class="post-title">
+                    Redis命令启动
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
           </div>
+
         </div>
       </div>
     </div>
