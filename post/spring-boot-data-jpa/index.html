@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Spring Boot Data JPA | Gridea</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://QLZL.github.io/favicon.ico?v=1612402803032">
+<link rel="stylesheet" href="https://QLZL.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="JPA是什么？
+JPA(Java Persistence API)是Sun官方提出的Java持久化规范，为Java开发人员提供了一种对象/关联映射工具来管理Java应用中的关系数据。 它的出现是为了简化现有的持久化开发工作和整合ORM技术，..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://QLZL.github.io">
+        <img src="https://QLZL.github.io/images/avatar.png?v=1612402803032" class="site-logo">
+        <h1 class="site-title">Gridea</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://QLZL.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Spring Boot Data JPA</h2>
+            <div class="post-date">2020-09-21</div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="jpa是什么">JPA是什么？</h2>
+<p>JPA(Java Persistence API)是Sun官方提出的Java持久化规范，为Java开发人员提供了一种对象/关联映射工具来管理Java应用中的关系数据。 它的出现是为了简化现有的持久化开发工作和整合ORM技术， 结束各个ORM框架各自为营的局面。</p>
+<blockquote>
+<p>JPA仅仅是一套规范,不是一套产品, 也就是说Hibernate, TopLink等是实现了JPA规范的一套产品.</p>
+</blockquote>
+<h2 id="spring-data-jpa">Spring Data JPA</h2>
+<p>Spring Data JPA是Spring基于ORM框架、JPA规范的基础上封装的一套JPA应用框架,是基于Hibernate之上构建的JPA使用解决方案,用极简的代码实现了对数据库的访问和操作,包括了增、删、改、查等在内的常用功能.</p>
+<h2 id="一-引入依赖">一、引入依赖</h2>
+<pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;mysql&lt;/groupId&gt;
+    &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+    &lt;scope&gt;runtime&lt;/scope&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+    &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+    &lt;optional&gt;true&lt;/optional&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;
+</code></pre>
+<h2 id="二-添加配置">二、添加配置</h2>
+<pre><code class="language-yml">spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/smile_boot?serverTimezone=UTC&amp;
+    useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=true
+    username: root
+    password: root
+
+  jpa:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: create
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        format_sql: true
+    show-sql: true
+</code></pre>
+<p>hibernate.hbm2ddl.auto 参数的作用主要用于：自动创建、更新、验证数据库表结构，有四个值。</p>
+<ol>
+<li>
+<p>create：每次加载 Hibernate 时都会删除上一次生成的表，然后根据 model 类再重新来生成新表，哪怕两次没有任何改变也要这样执行，这就是导致数据库表数据丢失的一个重要原因。</p>
+</li>
+<li>
+<p>create-drop：每次加载 Hibernate 时根据 model 类生成表，但是 sessionFactory 一关闭，表就自动删除。</p>
+</li>
+<li>
+<p>update：最常用的属性，第一次加载 Hibernate 时根据 model 类会自动建立起表的结构（前提是先建立好数据库），以后加载 Hibernate 时根据 model 类自动更新表结构，即使表结构改变了，但表中的行仍然存在，不会删除以前的行。要注意的是当部署到服务器后，表结构是不会被马上建立起来的，是要等应用第一次运行起来后才会。</p>
+</li>
+<li>
+<p>validate ：每次加载 Hibernate 时，验证创建数据库表结构，只会和数据库中的表进行比较，不会创建新表，但是会插入新值。</p>
+</li>
+</ol>
+<p>配置文件中</p>
+<ol>
+<li>
+<p>dialect 主要是指定生成表名的存储引擎为 InnoDB</p>
+</li>
+<li>
+<p>show-sql 是否在日志中打印出自动生成的 SQL，方便调试的时候查看</p>
+</li>
+</ol>
+<h2 id="三-编写代码">三、编写代码</h2>
+<pre><code class="language-java">@Entity
+public class User {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String userName;
+
+    @Column(nullable = false)
+    private String passWord;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column(nullable = true, unique = true)
+    private String nickName;
+
+    @Column(nullable = false)
+    private String regTime;
+
+    public User(String userName, String passWord, String email, String nickName, String regTime) {
+        this.userName = userName;
+        this.passWord = passWord;
+        this.email = email;
+        this.nickName = nickName;
+        this.regTime = regTime;
+    }
+
+    public User() {
+    }
+
+    // getter and setter
+}
+</code></pre>
+<p>注解：</p>
+<ul>
+<li>
+<p>@Entity(name=&quot;EntityName&quot;) 必须，用来标注一个数据库对应的实体，数据库中创建的表名默认和类名一致。其中，name 为可选，对应数据库中一个表，使用此注解标记 Pojo 是一个 JPA 实体。</p>
+</li>
+<li>
+<p>@Table(name=&quot;&quot;，catalog=&quot;&quot;，schema=&quot;&quot;) 可选，用来标注一个数据库对应的实体，数据库中创建的表名默认和类名一致。通常和 @Entity 配合使用，只能标注在实体的 class 定义处，表示实体对应的数据库表的信息。</p>
+</li>
+<li>
+<p>@Id 必须，@Id 定义了映射到数据库表的主键的属性，一个实体只能有一个属性被映射为主键。</p>
+</li>
+<li>
+<p>@GeneratedValue(strategy=GenerationType，generator=&quot;&quot;) 可选，strategy: 表示主键生成策略，有 AUTO、INDENTITY、SEQUENCE 和 TABLE 4 种，分别表示让 ORM 框架自动选择，generator: 表示主键生成器的名称。</p>
+</li>
+<li>
+<p>@Column(name = &quot;user_code&quot;， nullable = false， length=32) 可选，@Column 描述了数据库表中该字段的详细定义，这对于根据 JPA 注解生成数据库表结构的工具。name: 表示数据库表中该字段的名称，默认情形属性名称一致；nullable: 表示该字段是否允许为 null，默认为 true；unique: 表示该字段是否是唯一标识，默认为 false；length: 表示该字段的大小，仅对 String 类型的字段有效。</p>
+</li>
+<li>
+<p>@Transient可选，@Transient 表示该属性并非一个到数据库表的字段的映射，ORM 框架将忽略该属性。</p>
+</li>
+<li>
+<p>@Enumerated 可选，使用枚举的时候，我们希望数据库中存储的是枚举对应的 String 类型，而不是枚举的索引值，需要在属性上面添加 @Enumerated(EnumType.STRING) 注解。</p>
+</li>
+</ul>
+<h2 id="四-repository构建">四、Repository构建</h2>
+<pre><code class="language-java">/**
+ * JpaRepository&lt;T, ID&gt;的泛型
+ *      T  实体类
+ *      ID  主键的类型
+ *
+ * @RepositoryDefinition(domainClass = User.class, idClass = String.class)
+ *      使用注解效果一致
+ *
+ */
+public interface UserRepository extends JpaRepository&lt;User,Long&gt; {
+
+    User findByUserNameOrEmail(String userName, String email);
+
+    User findByUserName(String userName);
+
+}
+</code></pre>
+<p>因为是继承,所以父类有的方法全部继承</p>
+<h2 id="自定义查询">自定义查询</h2>
+<p>Spring Data JPA 可以根据接口方法名来实现数据库操作，主要的语法是 findXXBy、readAXXBy、queryXXBy、countXXBy、getXXBy 后面跟属性名称，利用这个功能仅需要在定义的 Repository 中添加对应的方法名即可，使用时 Spring Boot 会自动帮我们实现.</p>
+<pre><code class="language-java">//根据用户名查询用户：
+User findByUserName(String userName);
+
+//也可以加一些关键字 And、or：
+User findByUserNameOrEmail(String username,String email);
+
+//修改、删除、统计也是类似语法：
+Long deleteById(Long id);
+Long countByUserName(String userName);
+
+//基本上 SQL 体系中的关键词都可以使用，如 LIKE 、IgnoreCase、OrderBy：
+List&lt;User&gt; findByEmailLike(String email);
+User findByUserNameIgnoreCase(String userName);
+List&lt;User&gt; findByUserNameOrderByEmailDesc(String email);   
+    
+</code></pre>
+<h3 id="关键字的使用和生产sql">关键字的使用和生产SQL:</h3>
+<table>
+<thead>
+<tr>
+<th>KeyWord</th>
+<th>Sample</th>
+<th>JPQL snippet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>And</td>
+<td>findByLastnameAndFirstname</td>
+<td>… where x.lastname = ?1 and x.firstname = ?2</td>
+</tr>
+<tr>
+<td>Or</td>
+<td>findByLastnameOrFirstname</td>
+<td>… where x.lastname = ?1 or x.firstname = ?2</td>
+</tr>
+<tr>
+<td>Is，Equals</td>
+<td>findByFirstnameIs，findByFirstnameEquals</td>
+<td>… where x.firstname = ?1</td>
+</tr>
+<tr>
+<td>Between</td>
+<td>findByStartDateBetween</td>
+<td>… where x.startDate between ?1 and ?2</td>
+</tr>
+<tr>
+<td>LessThan</td>
+<td>findByAgeLessThan</td>
+<td>… where x.age &lt; ?1</td>
+</tr>
+<tr>
+<td>LessThanEqual</td>
+<td>findByAgeLessThanEqual</td>
+<td>… where x.age ⇐ ?1</td>
+</tr>
+<tr>
+<td>GreaterThan</td>
+<td>findByAgeGreaterThan</td>
+<td>… where x.age &gt; ?1</td>
+</tr>
+<tr>
+<td>GreaterThanEqual</td>
+<td>findByAgeGreaterThanEqual</td>
+<td>… where x.age &gt;= ?1</td>
+</tr>
+<tr>
+<td>After</td>
+<td>findByStartDateAfter</td>
+<td>… where x.startDate &gt; ?1</td>
+</tr>
+<tr>
+<td>Before</td>
+<td>findByStartDateBefore</td>
+<td>… where x.startDate &lt; ?1</td>
+</tr>
+<tr>
+<td>IsNull</td>
+<td>findByAgeIsNull</td>
+<td>… where x.age is null</td>
+</tr>
+<tr>
+<td>IsNotNull，NotNull</td>
+<td>findByAge(Is)NotNull</td>
+<td>… where x.age not null</td>
+</tr>
+<tr>
+<td>Like</td>
+<td>findByFirstnameLike</td>
+<td>… where x.firstname like ?1</td>
+</tr>
+<tr>
+<td>NotLike</td>
+<td>findByFirstnameNotLike</td>
+<td>… where x.firstname not like ?1</td>
+</tr>
+<tr>
+<td>StartingWith</td>
+<td>findByFirstnameStartingWith</td>
+<td>… where x.firstname like ?1 (parameter bound with appended %)</td>
+</tr>
+<tr>
+<td>EndingWith</td>
+<td>findByFirstnameEndingWith</td>
+<td>… where x.firstname like ?1 (parameter bound with prepended %)</td>
+</tr>
+<tr>
+<td>Containing</td>
+<td>findByFirstnameContaining</td>
+<td>… where x.firstname like ?1 (parameter bound wrapped in %)</td>
+</tr>
+<tr>
+<td>OrderBy</td>
+<td>findByAgeOrderByLastnameDesc</td>
+<td>… where x.age = ?1 order by x.lastname desc</td>
+</tr>
+<tr>
+<td>Not</td>
+<td>findByLastnameNot</td>
+<td>… where x.lastname &lt;&gt; ?1</td>
+</tr>
+<tr>
+<td>In</td>
+<td>findByAgeIn(Collection ages)</td>
+<td>… where x.age in ?1</td>
+</tr>
+<tr>
+<td>NotIn</td>
+<td>findByAgeNotIn(Collection age)</td>
+<td>… where x.age not in ?1</td>
+</tr>
+<tr>
+<td>TRUE</td>
+<td>findByActiveTrue()</td>
+<td>… where x.active = true</td>
+</tr>
+<tr>
+<td>FALSE</td>
+<td>findByActiveFalse()</td>
+<td>… where x.active = false</td>
+</tr>
+<tr>
+<td>IgnoreCase</td>
+<td>findByFirstnameIgnoreCase</td>
+<td>… where UPPER(x.firstame) = UPPER(?1)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="自定义sql查询">自定义SQL查询</h2>
+<h3 id="在repository中增加方法">在Repository中增加方法:</h3>
+<pre><code class="language-java">	/**
+     * @Author Smith
+     * @Description 自定义Sql查询.(这个本来是HQL的写法,我的运行不了,改成了本地的SQL)
+     * @Date 10:18 2019/1/24
+     * @Param 
+     * @return org.springframework.data.domain.Page&lt;com.jpa.springdatajpa.model.User&gt;
+     **/
+    @Query(value = &quot;select * from user&quot;,nativeQuery = true)
+    Page&lt;User&gt; findALL(Pageable pageable);
+
+    /**
+     * @Author Smith
+     * @Description 原生SQL的写法,?1表示方法参数中的顺序
+     * @Date 10:20 2019/1/24
+     * @Param 
+     * @return org.springframework.data.domain.Page&lt;com.jpa.springdatajpa.model.User&gt;
+     **/
+    @Query(value = &quot;select * from user where nick_name = ?1&quot;,nativeQuery = true)
+    Page&lt;User&gt; findByNickName(String nickName, Pageable pageable);
+
+    /**
+     * @Author Smith
+     * @Description 修改,添加事务的支持
+     * @Date 10:21 2019/1/24
+     * @Param 
+     * @return int
+     **/
+    @Transactional(timeout = 10)
+    @Modifying
+    @Query(&quot;update User set userName = ?1 where id = ?2&quot;)
+    int modifyById(String  userName, Long id);
+
+    /**
+     * @Author Smith
+     * @Description 删除
+     * @Date 10:22 2019/1/24
+     * @Param 
+     * @return void
+     **/
+    @Transactional
+    @Modifying
+    @Query(&quot;delete from User where id = ?1&quot;)
+    @Override
+    void deleteById(Long id);
+</code></pre>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://QLZL.github.io/post/xue-xi-zhi-shi-de-5-ge-jie-duan/">
+                  <h3 class="post-title">
+                    学习知识的5个阶段
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>大数据开发需要掌握哪些知识？ | Gridea</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://QLZL.github.io/favicon.ico?v=1612402803032">
+<link rel="stylesheet" href="https://QLZL.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="一、大数据里面的角色
+角色一：大数据工程
+大数据工程需要解决数据的定义、收集、计算与保存的工作，因此大数据工程师们在设计和部署这样的系统时首要考虑的是数据高可用的问题，即大数据工程系统需要实时地为下游业务系统或分析系统提供数据服务；
+角色二..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://QLZL.github.io">
+        <img src="https://QLZL.github.io/images/avatar.png?v=1612402803032" class="site-logo">
+        <h1 class="site-title">Gridea</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://QLZL.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">大数据开发需要掌握哪些知识？</h2>
+            <div class="post-date">2020-10-21</div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="一-大数据里面的角色">一、大数据里面的角色</h2>
+<h3 id="角色一大数据工程"><strong>角色一：大数据工程</strong></h3>
+<p>大数据工程需要解决数据的定义、收集、计算与保存的工作，因此大数据工程师们在设计和部署这样的系统时首要考虑的是数据高可用的问题，即大数据工程系统需要实时地为下游业务系统或分析系统提供数据服务；</p>
+<h3 id="角色二大数据分析"><strong>角色二：大数据分析</strong></h3>
+<p>大数据分析角色定位于如何利用数据——即从大数据工程系统中接收到数据之后如何为企业或组织提供有产出的数据分析，并且确实能够帮助到公司进行业务改善或提升服务水平，所以对于大数据分析师来说，他们首要解决的问题是发现并利用数据的价值，具体可能包括：趋势分析、模型建立以及预测分析等。</p>
+<h2 id="二-大数据工程师">二、大数据工程师</h2>
+<p>针对角色一：大数据工程说，对应的工作岗位就叫大数据工程师，对于大数据工程师而言，您至少要掌握以下技能：</p>
+<h3 id="linux基础"><strong>linux基础</strong></h3>
+<p>因为大数据体系，基本都是开源软件，这些开源软件都是在开源的linux系统上运行的，所以你必须会基本的linux操作，比如用户管理，权限，shell编程之类的</p>
+<h3 id="一门jvm系语言"><strong>一门JVM系语言</strong>：</h3>
+<p>当前大数据生态JVM系语言类的比重极大，某种程度上说是垄断也不为过。这里我推荐大家学习Java或Scala，至于Clojure这样的语言上手不易，其实并不推荐大家使用。另外，如今是“母以子贵”的年代，某个大数据框架会带火它的编程语言的流行，比如Docker之于Go、Kafka之于Scala。</p>
+<p>建议：学习Java或Scala</p>
+<h3 id="计算处理框架"><strong>计算处理框架：</strong></h3>
+<p>严格来说，这分为离线批处理和流式处理。流式处理是未来的趋势，建议大家一定要去学习；而离线批处理其实已经快过时了，它的分批处理思想无法处理无穷数据集，因此其适用范围日益缩小。事实上，Google已经在公司内部正式废弃了以MapReduce为代表的离线处理。</p>
+<p>因此如果要学习大数据工程，掌握一门实时流式处理框架是必须的。当下主流的框架包括：Apache Samza, Apache Storm, Apache Spark Streaming以及最近一年风头正劲的Apache Flink。当然Apache Kafka也推出了它自己的流式处理框架：Kafka Streams</p>
+<p>建议：学习Flink、Spark Streaming或Kafka Streams中的一个</p>
+<h3 id="分布式存储框架"><strong>分布式存储框架：</strong></h3>
+<p>虽说MapReduce有些过时了，但Hadoop的另一个基石HDFS依然坚挺，并且是开源社区最受欢迎的分布式存储，绝对您花时间去学习。当然开源世界中还有很多的分布式存储，国内阿里巴巴的OceanBase也是很优秀的一个。</p>
+<p>建议：学习HDFS</p>
+<h3 id="资源调度框架"><strong>资源调度框架：</strong></h3>
+<p>Docker可是整整火了最近一两年。各个公司都在发力基于Docker的容器解决方案，最有名的开源容器调度框架就是K8S了，但同样著名的还有Hadoop的YARN和Apache Mesos。后两者不仅可以调度容器集群，还可以调度非容器集群，非常值得我们学习。</p>
+<p>建议：学习YARN</p>
+<h3 id="分布式协调框架"><strong>分布式协调框架：</strong></h3>
+<p>有一些通用的功能在所有主流大数据分布式框架中都需要实现，比如服务发现、领导者选举、分布式锁、KV存储等。这些功能也就催生了分布式协调框架的发展。最古老也是最有名的当属Apache Zookeeper了，新一些的包括Consul，etcd等。学习大数据工程，分布式协调框架是不能不了解的， 某种程度上还要深入了解。</p>
+<p>建议：学习Zookeeper——太多大数据框架都需要它了，比如Kafka, Storm, HBase等</p>
+<h3 id="kv数据库"><strong>KV数据库：</strong></h3>
+<p>典型的就是memcache和Redis了，特别是Redis简直是发展神速。其简洁的API设计和高性能的TPS日益得到广大用户的青睐。即使是不学习大数据，学学Redis都是大有裨益的。</p>
+<p>建议：学习Redis，如果C语言功底好的，最好熟读源码，反正源码也不多</p>
+<h3 id="列式存储数据库"><strong>列式存储数据库</strong>：</h3>
+<p>人们针对行式存储不适用于大数据ad-hoc查询这种弊端开发出了列式存储，典型的列式存储数据库就是开源社区的HBASE。</p>
+<p>建议：学习HBASE，这是目前应用最广泛的开源列式存储</p>
+<h3 id="消息队列"><strong>消息队列：</strong></h3>
+<p>大数据工程处理中消息队列作为“削峰填谷”的主力系统是必不可少的，当前该领域内的解决方案有很多，包括ActiveMQ，Kafka等。国内阿里也开源了RocketMQ。这其中的翘楚当属Apache Kafka了。Kafka的很多设计思想都特别契合分布流式数据处理的设计理念。这也难怪，Kafka的原作者Jay Kreps可是当今实时流式处理方面的顶级大神。</p>
+<p>建议：学习Kafka，不仅仅好找工作(几乎所有大数据招聘简历都要求会Kafka:-） )，还能触类旁通进一步理解基于备份日志方式的数据处理范型</p>
+<h2 id="三-大数据必备技能详细">三、大数据必备技能详细</h2>
+<p>总共分为五大部分，分别是：</p>
+<ul>
+<li>大数据技术基础</li>
+<li>离线计算Hadoop</li>
+<li>流式计算Storm</li>
+<li>内存计算Spark</li>
+<li>机器学习算法</li>
+</ul>
+<h4 id="大数据技术基础">大数据技术基础</h4>
+<h5 id="linux操作基础">linux操作基础</h5>
+<ul>
+<li>linux系统简介与安装</li>
+<li>linux常用命令–文件操作</li>
+<li>linux常用命令–用户管理与权限</li>
+<li>linux常用命令–系统管理</li>
+<li>linux常用命令–免密登陆配置与网络管理</li>
+<li>linux上常用软件安装</li>
+<li>linux本地yum源配置及yum软件安装</li>
+<li>linux防火墙配置</li>
+<li>linux高级文本处理命令cut、sed、awk</li>
+<li>linux定时任务crontab</li>
+</ul>
+<h5 id="shell编程">shell编程</h5>
+<ul>
+<li>shell编程–基本语法</li>
+<li>shell编程–流程控制</li>
+<li>shell编程–函数</li>
+<li>shell编程–综合案例–自动化部署脚本</li>
+</ul>
+<h5 id="内存数据库redis">内存数据库redis</h5>
+<ul>
+<li>redis和nosql简介</li>
+<li>redis客户端连接</li>
+<li>redis的string类型数据结构操作及应用-对象缓存</li>
+<li>redis的list类型数据结构操作及应用案例-任务调度队列</li>
+<li>redis的hash及set数据结构操作及应用案例-购物车</li>
+<li>redis的sortedset数据结构操作及应用案例-排行榜</li>
+</ul>
+<h5 id="布式协调服务zookeeper">布式协调服务zookeeper</h5>
+<ul>
+<li>zookeeper简介及应用场景</li>
+<li>zookeeper集群安装部署</li>
+<li>zookeeper的数据节点与命令行操作</li>
+<li>zookeeper的java客户端基本操作及事件监听</li>
+<li>zookeeper核心机制及数据节点</li>
+<li>zookeeper应用案例–分布式共享资源锁</li>
+<li>zookeeper应用案例–服务器上下线动态感知</li>
+<li>zookeeper的数据一致性原理及leader选举机制</li>
+</ul>
+<h5 id="java高级特性增强">java高级特性增强</h5>
+<ul>
+<li>Java多线程基本知识</li>
+<li>Java同步关键词详解</li>
+<li>java并发包线程池及在开源软件中的应用</li>
+<li>Java并发包消息队里及在开源软件中的应用</li>
+<li>Java JMS技术</li>
+<li>Java动态代理反射</li>
+</ul>
+<h5 id="轻量级rpc框架开发">轻量级RPC框架开发</h5>
+<ul>
+<li>RPC原理学习</li>
+<li>Nio原理学习</li>
+<li>Netty常用API学习</li>
+<li>轻量级RPC框架需求分析及原理分析</li>
+<li>轻量级RPC框架开发</li>
+</ul>
+<h4 id="离线计算hadoop">离线计算Hadoop</h4>
+<h5 id="hadoop快速入门">hadoop快速入门</h5>
+<ul>
+<li>hadoop背景介绍</li>
+<li>分布式系统概述</li>
+<li>离线数据分析流程介绍</li>
+<li>集群搭建</li>
+<li>集群使用初步</li>
+</ul>
+<h5 id="hdfs增强">HDFS增强</h5>
+<ul>
+<li>HDFS的概念和特性</li>
+<li>HDFS的shell(命令行客户端)操作</li>
+<li>HDFS的工作机制</li>
+<li>NAMENODE的工作机制</li>
+<li>java的api操作</li>
+<li>案例1：开发shell采集脚本</li>
+</ul>
+<h5 id="mapreduce详解">MAPREDUCE详解</h5>
+<ul>
+<li>自定义hadoop的RPC框架</li>
+<li>Mapreduce编程规范及示例编写</li>
+<li>Mapreduce程序运行模式及debug方法</li>
+<li>mapreduce程序运行模式的内在机理</li>
+<li>mapreduce运算框架的主体工作流程</li>
+<li>自定义对象的序列化方法</li>
+<li>MapReduce编程案例</li>
+</ul>
+<h5 id="mapreduce增强">MAPREDUCE增强</h5>
+<ul>
+<li>Mapreduce排序</li>
+<li>自定义partitioner</li>
+<li>Mapreduce的combiner</li>
+<li>mapreduce工作机制详解</li>
+</ul>
+<h5 id="mapreduce实战">MAPREDUCE实战</h5>
+<ul>
+<li>maptask并行度机制-文件切片</li>
+<li>maptask并行度设置</li>
+<li>倒排索引</li>
+<li>共同好友</li>
+</ul>
+<h5 id="federation介绍和hive使用">federation介绍和hive使用</h5>
+<ul>
+<li>Hadoop的HA机制</li>
+<li>HA集群的安装部署</li>
+<li>集群运维测试之Datanode动态上下线</li>
+<li>集群运维测试之Namenode状态切换管理</li>
+<li>集群运维测试之数据块的balance</li>
+<li>HA下HDFS-API变化</li>
+<li>hive简介</li>
+<li>hive架构</li>
+<li>hive安装部署</li>
+<li>hvie初使用</li>
+</ul>
+<h5 id="hive增强和flume介绍">hive增强和flume介绍</h5>
+<ul>
+<li>HQL-DDL基本语法</li>
+<li>HQL-DML基本语法</li>
+<li>HIVE的join</li>
+<li>HIVE 参数配置</li>
+<li>HIVE 自定义函数和Transform</li>
+<li>HIVE 执行HQL的实例分析</li>
+<li>HIVE最佳实践注意点</li>
+<li>HIVE优化策略</li>
+<li>HIVE实战案例</li>
+<li>Flume介绍</li>
+<li>Flume的安装部署</li>
+<li>案例：采集目录到HDFS</li>
+<li>案例：采集文件到HDFS</li>
+</ul>
+<h4 id="流式计算storm">流式计算Storm</h4>
+<h5 id="storm从入门到精通">Storm从入门到精通</h5>
+<ul>
+<li>Storm是什么</li>
+<li>Storm架构分析</li>
+<li>Storm架构分析</li>
+<li>Storm编程模型、Tuple源码、并发度分析</li>
+<li>Storm WordCount案例及常用Api分析</li>
+<li>Storm集群部署实战</li>
+<li>Storm+Kafka+Redis业务指标计算</li>
+<li>Storm源码下载编译</li>
+<li>Strom集群启动及源码分析</li>
+<li>Storm任务提交及源码分析</li>
+<li>Storm数据发送流程分析</li>
+<li>Storm通信机制分析</li>
+<li>Storm消息容错机制及源码分析</li>
+<li>Storm多stream项目分析</li>
+<li>编写自己的流式任务执行框架</li>
+</ul>
+<h5 id="storm上下游及架构集成">Storm上下游及架构集成</h5>
+<ul>
+<li>消息队列是什么</li>
+<li>Kakfa核心组件</li>
+<li>Kafka集群部署实战及常用命令</li>
+<li>Kafka配置文件梳理</li>
+<li>Kakfa JavaApi学习</li>
+<li>Kafka文件存储机制分析</li>
+<li>Redis基础及单机环境部署</li>
+<li>Redis数据结构及典型案例</li>
+<li>Flume快速入门</li>
+<li>Flume+Kafka+Storm+Redis整合</li>
+</ul>
+<h4 id="存计算spark">存计算Spark</h4>
+<h5 id="scala编程">scala编程</h5>
+<ul>
+<li>scala编程介绍</li>
+<li>scala相关软件安装</li>
+<li>scala基础语法</li>
+<li>scala方法和函数</li>
+<li>scala函数式编程特点</li>
+<li>scala数组和集合</li>
+<li>scala编程练习（单机版WordCount）</li>
+<li>scala面向对象</li>
+<li>scala模式匹配</li>
+<li>actor编程介绍</li>
+<li>option和偏函数</li>
+<li>实战：actor的并发WordCount</li>
+<li>柯里化</li>
+<li>隐式转换</li>
+</ul>
+<h5 id="akka与rpc">AKKA与RPC</h5>
+<ul>
+<li>Akka并发编程框架</li>
+<li>实战：RPC编程实战</li>
+</ul>
+<h5 id="spark快速入门">Spark快速入门</h5>
+<ul>
+<li>spark介绍</li>
+<li>spark环境搭建</li>
+<li>RDD简介</li>
+<li>RDD的转换和动作</li>
+<li>实战：RDD综合练习</li>
+<li>RDD高级算子</li>
+<li>自定义Partitioner</li>
+<li>实战：网站访问次数</li>
+<li>广播变量</li>
+<li>实战：根据IP计算归属地</li>
+<li>自定义排序</li>
+<li>利用JDBC RDD实现数据导入导出</li>
+<li>WorldCount执行流程详解</li>
+</ul>
+<h5 id="rdd详解">RDD详解</h5>
+<ul>
+<li>RDD依赖关系</li>
+<li>RDD缓存机制</li>
+<li>RDD的Checkpoint检查点机制</li>
+<li>Spark任务执行过程分析</li>
+<li>RDD的Stage划分</li>
+</ul>
+<h5 id="spark-sql应用">Spark-Sql应用</h5>
+<ul>
+<li>Spark-SQL</li>
+<li>Spark结合Hive</li>
+<li>DataFrame</li>
+<li>实战：Spark-SQL和DataFrame案例</li>
+</ul>
+<h5 id="sparkstreaming应用实战">SparkStreaming应用实战</h5>
+<ul>
+<li>Spark-Streaming简介</li>
+<li>Spark-Streaming编程</li>
+<li>实战：StageFulWordCount</li>
+<li>Flume结合Spark Streaming</li>
+<li>Kafka结合Spark Streaming</li>
+<li>窗口函数</li>
+<li>ELK技术栈介绍</li>
+<li>ElasticSearch安装和使用</li>
+<li>Storm架构分析</li>
+<li>Storm编程模型、Tuple源码、并发度分析</li>
+<li>Storm WordCount案例及常用Api分析</li>
+</ul>
+<h5 id="spark核心源码解析">Spark核心源码解析</h5>
+<ul>
+<li>Spark源码编译</li>
+<li>Spark远程debug</li>
+<li>Spark任务提交行流程源码分析</li>
+<li>Spark通信流程源码分析</li>
+<li>SparkContext创建过程源码分析</li>
+<li>DriverActor和ClientActor通信过程源码分析</li>
+<li>Worker启动Executor过程源码分析</li>
+<li>Executor向DriverActor注册过程源码分析</li>
+<li>Executor向Driver注册过程源码分析</li>
+<li>DAGScheduler和TaskScheduler源码分析</li>
+<li>Shuffle过程源码分析</li>
+<li>Task执行过程源码分析</li>
+</ul>
+<h4 id="机器学习算法">机器学习算法</h4>
+<h5 id="python及numpy库">python及numpy库</h5>
+<ul>
+<li>机器学习简介</li>
+<li>机器学习与python</li>
+<li>python语言–快速入门</li>
+<li>python语言–数据类型详解</li>
+<li>python语言–流程控制语句</li>
+<li>python语言–函数使用</li>
+<li>python语言–模块和包</li>
+<li>phthon语言–面向对象</li>
+<li>python机器学习算法库–numpy</li>
+<li>机器学习必备数学知识–概率论</li>
+</ul>
+<h5 id="常用算法实现">常用算法实现</h5>
+<ul>
+<li>knn分类算法–算法原理</li>
+<li>knn分类算法–代码实现</li>
+<li>knn分类算法–手写字识别案例</li>
+<li>lineage回归分类算法–算法原理</li>
+<li>lineage回归分类算法–算法实现及demo</li>
+<li>朴素贝叶斯分类算法–算法原理</li>
+<li>朴素贝叶斯分类算法–算法实现</li>
+<li>朴素贝叶斯分类算法–垃圾邮件识别应用案例</li>
+<li>kmeans聚类算法–算法原理</li>
+<li>kmeans聚类算法–算法实现</li>
+<li>kmeans聚类算法–地理位置聚类应用</li>
+<li>决策树分类算法–算法原理</li>
+<li>决策树分类算法–算法实现</li>
+</ul>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://QLZL.github.io/post/spring-boot-data-jpa/">
+                  <h3 class="post-title">
+                    Spring Boot Data JPA
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>
